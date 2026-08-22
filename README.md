@@ -57,3 +57,36 @@ There are no accounts, no database, and no permanent progress to manage.
 <br>
 
 ---
+
+## 🔥 FROM THE ORIGINAL → TO THE REMASTER
+
+The original **Text Adventure** was one of my earlier Java web projects.  
+The Remastered edition keeps its core idea — but rebuilds the experience, architecture, and presentation around a modern Spring Boot application.
+
+| | 🏰 ORIGINAL | 🐉 REMASTERED v2.0 |
+|---|---|---|
+| **Backend** | Java web application | Java 21 + Spring Boot 4.1 |
+| **Navigation** | Traditional multi-page flow | Single-page interactive experience |
+| **Transitions** | Full page reloads | Seamless in-place scene transitions |
+| **Game flow** | Page-driven progression | REST-driven game engine |
+| **Interface** | Classic JSP-based UI | Completely redesigned cinematic UI |
+| **Responsive design** | Primarily desktop-oriented | Dedicated desktop and mobile experiences |
+| **Localization** | Single-language experience | English / Russian runtime switching |
+| **Atmosphere** | Static visual presentation | Animated environments, particles, video and audio |
+| **Deployment** | Traditional web deployment | Dockerized deployment on Render |
+
+<br>
+
+<div align="center">
+
+### 🏰 WHERE THE JOURNEY STARTED
+
+The original project is still available — preserved as the first version of the adventure.
+
+### [EXPLORE THE ORIGINAL TEXT ADVENTURE →](https://github.com/Rarxan/text-adventure)
+
+</div>
+
+<br>
+
+---
