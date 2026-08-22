@@ -159,3 +159,53 @@ Player progress exists only for the current session — lightweight, temporary, 
 <br>
 
 ---
+
+## ⚙️ UNDER THE ARMOR
+
+Behind the cinematic presentation is a lightweight Spring Boot application built around a clear separation of responsibilities.
+
+**Java 21** powers the application core, **Spring Boot 4.1** provides the backend and REST layer, while the interactive experience is handled by **HTML, CSS and JavaScript** on the client side.
+
+Game content is stored separately from the application logic, allowing scenes, localized text, choices, and progression to remain independent from the presentation layer.
+
+<div align="center">
+
+### 🛠️ BUILT WITH
+
+![Java](https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.1-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
+![Maven](https://img.shields.io/badge/Maven-Build-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Render](https://img.shields.io/badge/Render-Deployed-000000?style=for-the-badge&logo=render&logoColor=white)
+
+</div>
+
+<br>
+
+---
+
+<div align="center">
+
+## 🐉 READY TO ENTER THE CASTLE?
+
+Every legend begins with a single step.
+
+Every wrong decision may be your last.
+
+<br>
+
+### ⚔️ [PLAY TEXT ADVENTURE REMASTERED](https://text-adventure-remastered.onrender.com)
+
+<br>
+
+**Built as a complete remaster of the original  
+[Text Adventure](https://github.com/Rarxan/text-adventure).**
+
+<br>
+
+*Enter the castle. Choose your path. Survive if you can.*
+
+### ⚔️ 🏰 🐉
+
+</div>
