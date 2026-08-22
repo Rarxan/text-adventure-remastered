@@ -90,3 +90,72 @@ The original project is still available — preserved as the first version of th
 <br>
 
 ---
+
+## 🗝️ WHAT'S INSIDE THE CASTLE
+
+The Remastered edition is built around a fully interactive adventure flow where every scene, choice, transition, and failure state is handled dynamically.
+
+### 🎭 Branching Choices
+
+Every question presents multiple possible actions.  
+Some lead forward. Some lead directly to death.
+
+The game reacts instantly to the player's decision without full page reloads, keeping the experience continuous and cinematic.
+
+### 💀 Death Scenarios
+
+Wrong decisions are not simple error messages.
+
+Each failed choice can lead to its own dedicated **death scene**, custom background, narrative text, and replay flow.
+
+The player can restart the adventure immediately and try a different path.
+
+### 🌍 Runtime Localization
+
+The interface supports **English and Russian** with instant language switching during runtime.
+
+Scene text, answers, labels, buttons, and narrative content adapt dynamically without restarting the game.
+
+### 🖥️ Desktop + Mobile Experience
+
+The interface is not simply scaled down for phones.
+
+Desktop and mobile layouts are tuned separately, including:
+
+- dedicated scene framing
+- responsive typography
+- mobile-specific UI positioning
+- adapted question and answer layouts
+- separate visual treatment for different screen ratios
+
+### 🎬 Cinematic Presentation
+
+The game combines static scenes with animated and audio layers to create a more immersive experience:
+
+- background music
+- victory music
+- animated smoke
+- fire effects
+- video transitions
+- fullscreen mode
+- custom cursor
+- cinematic fade transitions
+- layered UI assets
+
+### 🧠 Session-Based Game State
+
+The adventure does not require registration, a database, or permanent accounts.
+
+Player progress exists only for the current session — lightweight, temporary, and focused entirely on the game experience.
+
+<br>
+
+<div align="center">
+
+### ⚔️ ONE CASTLE. MANY CHOICES. VERY FEW GOOD DECISIONS.
+
+</div>
+
+<br>
+
+---
