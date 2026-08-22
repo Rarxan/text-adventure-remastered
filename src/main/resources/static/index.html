@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Text Adventure Remastered</title>
+
+    <link rel="icon"
+          href="/favicon/dragon.ico">
+
+    <link rel="stylesheet"
+          href="/css/style.css">
+</head>
+
+
+<body>
+
+
+<!-- ====================================================================== -->
+<!-- 01. PRE-WELCOME INTRO                                                  -->
+<!-- ====================================================================== -->
+
+<div id="pre-welcome">
+
+    <video id="pre-welcome-video"
+           autoplay
+           muted
+           loop
+           playsinline>
+
+        <source src="/video/pre_welcome_dragons.mp4"
+                type="video/mp4">
+
+    </video>
+
+
+    <div id="pre-welcome-overlay"></div>
+
+
+    <div id="pre-welcome-content">
+
+        <div id="pre-welcome-panel">
+
+            <h2 id="pre-welcome-title">
+                EVERY LEGEND<br>
+                BEGINS WITH<br>
+                A SINGLE STEP
+            </h2>
+
+
+            <p id="pre-welcome-text">
+                For complete immersion, fullscreen mode is recommended.
+            </p>
+
+
+            <button id="pre-welcome-enter-button"
+                    type="button">
+
+                ENTER THE CASTLE
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div id="pre-welcome-journey">
+        Your journey begins...
+    </div>
+
+</div>
+
+
+<!-- ====================================================================== -->
+<!-- 02. GAME STAGE                                                         -->
+<!-- ====================================================================== -->
+
+<div id="game"
+     class="initial-loading">
+
+
+    <!-- ------------------------------------------------------------------ -->
+    <!-- SCENE BACKGROUND                                                   -->
+    <!-- ------------------------------------------------------------------ -->
+
+    <img id="scene-image"
+         alt="Scene">
+
+    <img id="scene-image-next"
+         alt="Next Scene">
+
+
+    <!-- ------------------------------------------------------------------ -->
+    <!-- SCENE EFFECTS                                                      -->
+    <!-- ------------------------------------------------------------------ -->
+
+    <video id="fire-video"
+           autoplay
+           muted
+           loop
+           playsinline>
+
+        <source src="/video/fire_intro.mp4"
+                type="video/mp4">
+
+    </video>
+
+
+    <video id="smoke-video"
+           autoplay
+           muted
+           loop
+           playsinline>
+
+        <source src="/video/smoke.mp4"
+                type="video/mp4">
+
+    </video>
+
+
+    <!-- ------------------------------------------------------------------ -->
+    <!-- VICTORY INTRO                                                      -->
+    <!-- ------------------------------------------------------------------ -->
+
+    <div id="victory-intro">
+
+        <video id="victory-intro-video"
+               playsinline>
+
+            <source src="/video/victory.mp4"
+                    type="video/mp4">
+
+        </video>
+
+    </div>
+
+
+    <audio id="victory-audio">
+
+        <source src="/audio/victory.mp3"
+                type="audio/mpeg">
+
+    </audio>
+
+
+    <!-- ------------------------------------------------------------------ -->
+    <!-- VISUAL LAYERS                                                      -->
+    <!-- ------------------------------------------------------------------ -->
+
+    <div id="overlay"></div>
+    <div id="color-grade"></div>
+    <div id="vignette"></div>
+
+
+    <!-- ------------------------------------------------------------------ -->
+    <!-- POPUP                                                              -->
+    <!-- ------------------------------------------------------------------ -->
+
+    <div id="popup"></div>
+
+
+    <!-- ================================================================== -->
+    <!-- 03. LANGUAGE SWITCH                                                -->
+    <!-- ================================================================== -->
+
+    <div id="language-switch"
+         aria-label="Language">
+
+        <button id="language-en"
+                type="button"
+                data-language="en"
+                aria-pressed="true">
+
+            EN
+
+        </button>
+
+
+        <span id="language-separator">
+            |
+        </span>
+
+
+        <button id="language-ru"
+                type="button"
+                data-language="ru"
+                aria-pressed="false">
+
+            RU
+
+        </button>
+
+    </div>
+
+
+    <!-- ================================================================== -->
+    <!-- 04. GAME PANEL                                                     -->
+    <!-- ================================================================== -->
+
+    <div id="game-panel">
+
+
+        <!-- -------------------------------------------------------------- -->
+        <!-- SCENE TITLE                                                    -->
+        <!-- -------------------------------------------------------------- -->
+
+        <h1 id="scene-title"></h1>
+
+
+        <!-- -------------------------------------------------------------- -->
+        <!-- SCENE TEXT                                                     -->
+        <!-- -------------------------------------------------------------- -->
+
+        <div id="scene-text">
+
+            <span id="scene-text-content"></span>
+
+        </div>
+
+
+        <!-- -------------------------------------------------------------- -->
+        <!-- WELCOME — ENTER NAME                                           -->
+        <!-- -------------------------------------------------------------- -->
+
+        <div id="enter-name-row">
+
+            <img src="/images/ui/border_enter_name_left.png"
+                 alt=""
+                 class="enter-name-ornament">
+
+
+            <div id="enter-name-label">
+                ENTER YOUR NAME
+            </div>
+
+
+            <img src="/images/ui/border_enter_name_right.png"
+                 alt=""
+                 class="enter-name-ornament">
+
+        </div>
+
+
+        <!-- -------------------------------------------------------------- -->
+        <!-- QUESTION — OPTIONS TEXT                                        -->
+        <!-- -------------------------------------------------------------- -->
+
+        <div id="question-options"></div>
+
+
+        <!-- -------------------------------------------------------------- -->
+        <!-- QUESTION — CHOICE PLATES                                       -->
+        <!-- -------------------------------------------------------------- -->
+
+        <div id="question-choices-visual">
+
+            <img src="/images/ui/choice_left.png"
+                 alt=""
+                 id="choice-left-image">
+
+
+            <img src="/images/ui/choice_right.png"
+                 alt=""
+                 id="choice-right-image">
+
+        </div>
+
+
+        <!-- -------------------------------------------------------------- -->
+        <!-- QUESTION — INPUT FRAME                                         -->
+        <!-- -------------------------------------------------------------- -->
+
+        <div id="question-input-visual">
+
+            <img src="/images/ui/input_frame.png"
+                 alt=""
+                 id="input-frame-image">
+
+        </div>
+
+
+        <!-- -------------------------------------------------------------- -->
+        <!-- WELCOME — CONTROLS                                             -->
+        <!-- -------------------------------------------------------------- -->
+
+        <div id="welcome-controls">
+
+            <input id="player-name"
+                   type="text"
+                   placeholder="Enter your name">
+
+
+            <!-- ---------------------------------------------------------- -->
+            <!-- MUSIC CONTROLS                                             -->
+            <!-- ---------------------------------------------------------- -->
+
+            <div id="music-controls">
+
+                <button id="start-music-button"
+                        type="button">
+
+                    <img src="/images/ui/icon_start_music.png"
+                         alt=""
+                         class="music-button-icon">
+
+                    <span>
+                        Start Music
+                    </span>
+
+                </button>
+
+
+                <button id="stop-music-button"
+                        type="button">
+
+                    <img src="/images/ui/icon_stop_music.png"
+                         alt=""
+                         class="music-button-icon">
+
+                    <span>
+                        Stop Music
+                    </span>
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- -------------------------------------------------------------- -->
+        <!-- WELCOME — START GAME                                           -->
+        <!-- -------------------------------------------------------------- -->
+
+        <div id="start-game-control">
+
+            <div id="start-game-visual">
+
+                <img src="/images/ui/Button_Start_Game_Red.png"
+                     alt=""
+                     id="start-game-red">
+
+                <span id="start-game-text">
+                    START GAME
+                </span>
+
+            </div>
+
+
+            <img src="/images/ui/frame_Button_Start_Game.png"
+                 alt=""
+                 id="start-game-frame">
+
+
+            <button id="start-game-button"
+                    type="button"
+                    aria-label="Start Game">
+            </button>
+
+        </div>
+
+
+        <!-- -------------------------------------------------------------- -->
+        <!-- QUESTION — ANSWER CONTROLS                                     -->
+        <!-- -------------------------------------------------------------- -->
+
+        <div id="question-controls">
+
+            <input id="answer-input"
+                   type="text"
+                   placeholder="Your answer...">
+
+
+            <!-- ---------------------------------------------------------- -->
+            <!-- QUESTION — SUBMIT                                         -->
+            <!-- ---------------------------------------------------------- -->
+
+            <div id="submit-answer-control">
+
+                <div id="submit-answer-visual">
+
+                    <img src="/images/ui/submit_button.png"
+                         alt=""
+                         id="submit-answer-red">
+
+                </div>
+
+
+                <img src="/images/ui/submit_frame.png"
+                     alt=""
+                     id="submit-answer-frame">
+
+
+                <button id="submit-answer-button"
+                        type="button"
+                        aria-label="Submit answer">
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- -------------------------------------------------------------- -->
+        <!-- DYNAMIC UI                                                     -->
+        <!-- -------------------------------------------------------------- -->
+
+        <div id="question-ui"></div>
+
+        <div id="answers"></div>
+
+    </div>
+
+</div>
+
+
+<!-- ====================================================================== -->
+<!-- 05. BACKGROUND MUSIC                                                   -->
+<!-- ====================================================================== -->
+
+<audio id="background-music"
+       loop
+       preload="auto">
+
+    <source src="/audio/Dark_Fantasy.mp3"
+            type="audio/mpeg">
+
+</audio>
+
+
+<!-- ====================================================================== -->
+<!-- 06. SCRIPTS                                                            -->
+<!-- ====================================================================== -->
+
+<script src="/js/game.js"></script>
+
+
+</body>
+
+</html>

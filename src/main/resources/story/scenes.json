@@ -1,0 +1,1051 @@
+{
+  "scenes": [
+    {
+      "id": "welcome",
+      "type": "welcome",
+      "text": {
+        "en": "Welcome to Text Adventure Remastered v2.0",
+        "ru": "Добро пожаловать в Text Adventure Remastered v2.0"
+      },
+      "imagePath": "/images/desktop/Welcome.png",
+      "answers": [
+        {
+          "key": "start",
+          "text": {
+            "en": "START",
+            "ru": "НАЧАТЬ"
+          },
+          "nextSceneId": "question1"
+        }
+      ]
+    },
+
+    {
+      "id": "question1",
+      "type": "question",
+      "text": {
+        "en": "You stand before an ancient castle. Do you enter through the main gate or search for another way in?",
+        "ru": "Перед вами древний замок. Войти через главные ворота или поискать другой путь?"
+      },
+      "imagePath": "/images/desktop/question_1.jpg",
+      "answers": [
+        {
+          "key": "main",
+          "text": {
+            "en": "MAIN",
+            "ru": "ВОРОТА"
+          },
+          "nextSceneId": "gameover1"
+        },
+        {
+          "key": "search",
+          "text": {
+            "en": "SEARCH",
+            "ru": "ПОИСК"
+          },
+          "nextSceneId": "question2"
+        }
+      ]
+    },
+
+    {
+      "id": "gameover1",
+      "type": "gameover",
+      "text": {
+        "en": "You entered the main gate and got ambushed by guards!",
+        "ru": "Вы вошли через главные ворота и попали в засаду стражников!"
+      },
+      "imagePath": "/images/desktop/question_1_Death.jpg",
+      "answers": [
+        {
+          "key": "restart",
+          "text": {
+            "en": "PLAY AGAIN",
+            "ru": "СНАЧАЛА"
+          },
+          "nextSceneId": "welcome"
+        }
+      ]
+    },
+
+    {
+      "id": "question2",
+      "type": "question",
+      "text": {
+        "en": "Inside it is completely dark. Do you light a torch or walk blindly?",
+        "ru": "Внутри совершенно темно. Зажечь факел или идти вслепую?"
+      },
+      "imagePath": "/images/desktop/question_2.jpg",
+      "answers": [
+        {
+          "key": "torch",
+          "text": {
+            "en": "TORCH",
+            "ru": "ФАКЕЛ"
+          },
+          "nextSceneId": "question3"
+        },
+        {
+          "key": "blind",
+          "text": {
+            "en": "BLIND",
+            "ru": "ВСЛЕПУЮ"
+          },
+          "nextSceneId": "gameover2"
+        }
+      ]
+    },
+
+    {
+      "id": "gameover2",
+      "type": "gameover",
+      "text": {
+        "en": "You did not light the torch and fell into a pit!",
+        "ru": "Вы не зажгли факел и сорвались в глубокую яму!"
+      },
+      "imagePath": "/images/desktop/question_2_Death.jpg",
+      "answers": [
+        {
+          "key": "restart",
+          "text": {
+            "en": "PLAY AGAIN",
+            "ru": "СНАЧАЛА"
+          },
+          "nextSceneId": "welcome"
+        }
+      ]
+    },
+
+    {
+      "id": "question3",
+      "type": "question",
+      "text": {
+        "en": "Stone knights stand in the corridor. Do you touch the sword of one knight or walk past?",
+        "ru": "В коридоре стоят каменные рыцари. Коснуться меча одного из них или пройти мимо?"
+      },
+      "imagePath": "/images/desktop/question_3.jpg",
+      "answers": [
+        {
+          "key": "walk",
+          "text": {
+            "en": "WALK",
+            "ru": "ИДТИ"
+          },
+          "nextSceneId": "gameover3"
+        },
+        {
+          "key": "sword",
+          "text": {
+            "en": "SWORD",
+            "ru": "МЕЧ"
+          },
+          "nextSceneId": "question4"
+        }
+      ]
+    },
+
+    {
+      "id": "gameover3",
+      "type": "gameover",
+      "text": {
+        "en": "You ignored the sword and got trapped by the stone knights!",
+        "ru": "Вы проигнорировали меч и оказались в ловушке каменных рыцарей!"
+      },
+      "imagePath": "/images/desktop/question_3_Death.jpg",
+      "answers": [
+        {
+          "key": "restart",
+          "text": {
+            "en": "PLAY AGAIN",
+            "ru": "СНАЧАЛА"
+          },
+          "nextSceneId": "welcome"
+        }
+      ]
+    },
+
+    {
+      "id": "question4",
+      "type": "question",
+      "text": {
+        "en": "Two paths lie ahead. Do you climb the stairs or descend into the darkness?",
+        "ru": "Впереди два пути. Подняться по лестнице или спуститься во тьму?"
+      },
+      "imagePath": "/images/desktop/question_4.jpg",
+      "answers": [
+        {
+          "key": "up",
+          "text": {
+            "en": "UP",
+            "ru": "ВВЕРХ"
+          },
+          "nextSceneId": "question5"
+        },
+        {
+          "key": "down",
+          "text": {
+            "en": "DOWN",
+            "ru": "ВНИЗ"
+          },
+          "nextSceneId": "gameover4"
+        }
+      ]
+    },
+
+    {
+      "id": "gameover4",
+      "type": "gameover",
+      "text": {
+        "en": "You went down into a deadly trap in the dungeon!",
+        "ru": "Вы спустились вниз и угодили в смертельную ловушку подземелья!"
+      },
+      "imagePath": "/images/desktop/question_4_Death.jpg",
+      "answers": [
+        {
+          "key": "restart",
+          "text": {
+            "en": "PLAY AGAIN",
+            "ru": "СНАЧАЛА"
+          },
+          "nextSceneId": "welcome"
+        }
+      ]
+    },
+
+    {
+      "id": "question5",
+      "type": "question",
+      "text": {
+        "en": "You find an ancient library. Do you take the magic book or ignore it?",
+        "ru": "Вы находите древнюю библиотеку. Взять магическую книгу или проигнорировать её?"
+      },
+      "imagePath": "/images/desktop/question_5.jpg",
+      "answers": [
+        {
+          "key": "ignore",
+          "text": {
+            "en": "IGNORE",
+            "ru": "ИГНОР"
+          },
+          "nextSceneId": "gameover5"
+        },
+        {
+          "key": "book",
+          "text": {
+            "en": "BOOK",
+            "ru": "КНИГА"
+          },
+          "nextSceneId": "question6"
+        }
+      ]
+    },
+
+    {
+      "id": "gameover5",
+      "type": "gameover",
+      "text": {
+        "en": "You ignored the magic book and faced the dragon unprepared!",
+        "ru": "Вы проигнорировали магическую книгу и встретились с драконом неподготовленным!"
+      },
+      "imagePath": "/images/desktop/question_5_Death.jpg",
+      "answers": [
+        {
+          "key": "restart",
+          "text": {
+            "en": "PLAY AGAIN",
+            "ru": "СНАЧАЛА"
+          },
+          "nextSceneId": "welcome"
+        }
+      ]
+    },
+
+    {
+      "id": "question6",
+      "type": "question",
+      "text": {
+        "en": "The ancient book reveals that the dragon sleeps. Do you move through the catacombs or enter the great hall?",
+        "ru": "Древняя книга сообщает: дракон спит. Пройти через катакомбы или войти в зал?"
+      },
+      "imagePath": "/images/desktop/question_6.jpg",
+      "answers": [
+        {
+          "key": "catacombs",
+          "text": {
+            "en": "CATACOMBS",
+            "ru": "КАТАКОМБЫ"
+          },
+          "nextSceneId": "question7"
+        },
+        {
+          "key": "hall",
+          "text": {
+            "en": "HALL",
+            "ru": "ЗАЛ"
+          },
+          "nextSceneId": "gameover6"
+        }
+      ]
+    },
+
+    {
+      "id": "gameover6",
+      "type": "gameover",
+      "text": {
+        "en": "You entered the great hall and awakened creatures lurking within the castle!",
+        "ru": "Вы вошли в великий зал и разбудили существ, скрывавшихся в глубинах замка!"
+      },
+      "imagePath": "/images/desktop/question_6_Death.jpg",
+      "answers": [
+        {
+          "key": "restart",
+          "text": {
+            "en": "PLAY AGAIN",
+            "ru": "СНАЧАЛА"
+          },
+          "nextSceneId": "welcome"
+        }
+      ]
+    },
+
+    {
+      "id": "question7",
+      "type": "question",
+      "text": {
+        "en": "The air suddenly becomes unnaturally cold. Frost begins to spread across the stone floor. What do you do?",
+        "ru": "Воздух резко холодает, а по полу расползается иней. Что вы сделаете?"
+      },
+      "imagePath": "/images/desktop/question_7.jpg",
+      "answers": [
+        {
+          "key": "torch",
+          "text": {
+            "en": "TORCH",
+            "ru": "ФАКЕЛ"
+          },
+          "nextSceneId": "gameover7"
+        },
+        {
+          "key": "move",
+          "text": {
+            "en": "MOVE",
+            "ru": "ИДТИ"
+          },
+          "nextSceneId": "question8"
+        }
+      ]
+    },
+
+    {
+      "id": "gameover7",
+      "type": "gameover",
+      "text": {
+        "en": "Something unseen moved through the darkness. You never saw what killed you.",
+        "ru": "Что-то невидимое двигалось во тьме. Вы так и не увидели, что именно вас убило."
+      },
+      "imagePath": "/images/desktop/question_7_Death.jpg",
+      "answers": [
+        {
+          "key": "restart",
+          "text": {
+            "en": "PLAY AGAIN",
+            "ru": "СНАЧАЛА"
+          },
+          "nextSceneId": "welcome"
+        }
+      ]
+    },
+
+    {
+      "id": "question8",
+      "type": "question",
+      "text": {
+        "en": "An underground river blocks your path. Do you cross the ancient bridge or enter the water?",
+        "ru": "Подземная река преграждает вам путь. Перейти по древнему мосту или войти в воду?"
+      },
+      "imagePath": "/images/desktop/question_8.jpg",
+      "answers": [
+        {
+          "key": "bridge",
+          "text": {
+            "en": "BRIDGE",
+            "ru": "МОСТ"
+          },
+          "nextSceneId": "question9"
+        },
+        {
+          "key": "water",
+          "text": {
+            "en": "WATER",
+            "ru": "ВОДА"
+          },
+          "nextSceneId": "gameover8"
+        }
+      ]
+    },
+
+    {
+      "id": "gameover8",
+      "type": "gameover",
+      "text": {
+        "en": "Something beneath the black water dragged you into the depths!",
+        "ru": "Нечто под чёрной водой схватило вас и утащило в глубину!"
+      },
+      "imagePath": "/images/desktop/question_8_Death.jpg",
+      "answers": [
+        {
+          "key": "restart",
+          "text": {
+            "en": "PLAY AGAIN",
+            "ru": "СНАЧАЛА"
+          },
+          "nextSceneId": "welcome"
+        }
+      ]
+    },
+
+    {
+      "id": "question9",
+      "type": "question",
+      "text": {
+        "en": "A voice calls your name from an ancient well. Do you look inside or keep moving?",
+        "ru": "Из древнего колодца кто-то зовёт вас по имени. Заглянуть внутрь или продолжить путь?"
+      },
+      "imagePath": "/images/desktop/question_9.jpg",
+      "answers": [
+        {
+          "key": "look",
+          "text": {
+            "en": "LOOK",
+            "ru": "СМОТРЕТЬ"
+          },
+          "nextSceneId": "gameover9"
+        },
+        {
+          "key": "move",
+          "text": {
+            "en": "MOVE",
+            "ru": "ИДТИ"
+          },
+          "nextSceneId": "question10"
+        }
+      ]
+    },
+
+    {
+      "id": "gameover9",
+      "type": "gameover",
+      "text": {
+        "en": "The creature inside the well seized you before you could step back!",
+        "ru": "Существо внутри колодца схватило вас прежде, чем вы успели отступить!"
+      },
+      "imagePath": "/images/desktop/question_9_Death.jpg",
+      "answers": [
+        {
+          "key": "restart",
+          "text": {
+            "en": "PLAY AGAIN",
+            "ru": "СНАЧАЛА"
+          },
+          "nextSceneId": "welcome"
+        }
+      ]
+    },
+
+    {
+      "id": "question10",
+      "type": "question",
+      "text": {
+        "en": "An ancient stone knight stands in your way. Do you kneel before him or dare to pass?",
+        "ru": "Древний каменный рыцарь встал на твоём пути. Преклонить колено или осмелиться пройти?"
+      },
+      "imagePath": "/images/desktop/question_10.jpg",
+      "answers": [
+        {
+          "key": "kneel",
+          "text": {
+            "en": "KNEEL",
+            "ru": "ПРЕКЛОНИТЬСЯ"
+          },
+          "nextSceneId": "question11"
+        },
+        {
+          "key": "pass",
+          "text": {
+            "en": "PASS",
+            "ru": "ПРОЙТИ"
+          },
+          "nextSceneId": "gameover10"
+        }
+      ]
+    },
+
+    {
+      "id": "gameover10",
+      "type": "gameover",
+      "text": {
+        "en": "You dared to pass. The guardian awakened — and his blade ended your journey!",
+        "ru": "Ты рискнул пройти. Страж пробудился — и его клинок оборвал твой путь!"
+      },
+      "imagePath": "/images/desktop/question_10_Death.jpg",
+      "answers": [
+        {
+          "key": "restart",
+          "text": {
+            "en": "PLAY AGAIN",
+            "ru": "СНАЧАЛА"
+          },
+          "nextSceneId": "welcome"
+        }
+      ]
+    },
+
+    {
+      "id": "question11",
+      "type": "question",
+      "text": {
+        "en": "You find a skeleton holding an ancient key. Do you take the key or leave it behind?",
+        "ru": "Вы находите скелет, сжимающий древний ключ. Взять ключ или оставить его?"
+      },
+      "imagePath": "/images/desktop/question_11.jpg",
+      "answers": [
+        {
+          "key": "leave",
+          "text": {
+            "en": "LEAVE",
+            "ru": "ОСТАВИТЬ"
+          },
+          "nextSceneId": "gameover11"
+        },
+        {
+          "key": "key",
+          "text": {
+            "en": "KEY",
+            "ru": "КЛЮЧ"
+          },
+          "nextSceneId": "question12"
+        }
+      ]
+    },
+
+    {
+      "id": "gameover11",
+      "type": "gameover",
+      "text": {
+        "en": "You left the key behind and couldn't unlock the next door!",
+        "ru": "Вы оставили ключ и не смогли открыть следующую дверь!"
+      },
+      "imagePath": "/images/desktop/question_11_Death.jpg",
+      "answers": [
+        {
+          "key": "restart",
+          "text": {
+            "en": "PLAY AGAIN",
+            "ru": "СНАЧАЛА"
+          },
+          "nextSceneId": "welcome"
+        }
+      ]
+    },
+
+    {
+      "id": "question12",
+      "type": "question",
+      "text": {
+        "en": "You discover the armor of the fallen king. Do you wear it or leave it untouched?",
+        "ru": "Вы находите доспехи павшего короля. Надеть их или оставить нетронутыми?"
+      },
+      "imagePath": "/images/desktop/question_12.jpg",
+      "answers": [
+        {
+          "key": "wear",
+          "text": {
+            "en": "WEAR",
+            "ru": "НАДЕТЬ"
+          },
+          "nextSceneId": "question13"
+        },
+        {
+          "key": "leave",
+          "text": {
+            "en": "LEAVE",
+            "ru": "ОСТАВИТЬ"
+          },
+          "nextSceneId": "gameover12"
+        }
+      ]
+    },
+
+    {
+      "id": "gameover12",
+      "type": "gameover",
+      "text": {
+        "en": "Without the ancient armor, the dragon's heat burned through your defenses!",
+        "ru": "Без древних доспехов жар дракона прожёг вашу защиту насквозь!"
+      },
+      "imagePath": "/images/desktop/question_12_Death.jpg",
+      "answers": [
+        {
+          "key": "restart",
+          "text": {
+            "en": "PLAY AGAIN",
+            "ru": "СНАЧАЛА"
+          },
+          "nextSceneId": "welcome"
+        }
+      ]
+    },
+
+    {
+      "id": "question13",
+      "type": "question",
+      "text": {
+        "en": "Dozens of stone kings sit silently upon ancient thrones. As you pass, one slowly raises its head. What do you do?",
+        "ru": "Древние каменные короли неподвижно сидят на тронах. Один из них медленно поднимает голову. Что вы сделаете?"
+      },
+      "imagePath": "/images/desktop/question_13.jpg",
+      "answers": [
+        {
+          "key": "run",
+          "text": {
+            "en": "RUN",
+            "ru": "БЕЖАТЬ"
+          },
+          "nextSceneId": "gameover13"
+        },
+        {
+          "key": "bow",
+          "text": {
+            "en": "BOW",
+            "ru": "ПОКЛОНИТЬСЯ"
+          },
+          "nextSceneId": "question14"
+        }
+      ]
+    },
+
+    {
+      "id": "gameover13",
+      "type": "gameover",
+      "text": {
+        "en": "The forgotten kings judged your arrogance. Their stone blades ended your journey.",
+        "ru": "Забытые короли осудили вашу дерзость. Их каменные клинки положили конец вашему путешествию."
+      },
+      "imagePath": "/images/desktop/question_13_Death.jpg",
+      "answers": [
+        {
+          "key": "restart",
+          "text": {
+            "en": "PLAY AGAIN",
+            "ru": "СНАЧАЛА"
+          },
+          "nextSceneId": "welcome"
+        }
+      ]
+    },
+
+    {
+      "id": "question14",
+      "type": "question",
+      "text": {
+        "en": "A chained beast sleeps beside the sealed gate. Do you sneak past it or attack before it wakes?",
+        "ru": "У запечатанных ворот спит прикованный зверь. Прокрасться мимо или атаковать?"
+      },
+      "imagePath": "/images/desktop/question_14.jpg",
+      "answers": [
+        {
+          "key": "sneak",
+          "text": {
+            "en": "SNEAK",
+            "ru": "КРАСТЬСЯ"
+          },
+          "nextSceneId": "question15"
+        },
+        {
+          "key": "attack",
+          "text": {
+            "en": "ATTACK",
+            "ru": "АТАКОВАТЬ"
+          },
+          "nextSceneId": "gameover14"
+        }
+      ]
+    },
+
+    {
+      "id": "gameover14",
+      "type": "gameover",
+      "text": {
+        "en": "Your attack broke the chains, and the enraged beast tore you apart!",
+        "ru": "Ваш удар разорвал цепи, и разъярённый зверь растерзал вас!"
+      },
+      "imagePath": "/images/desktop/question_14_Death.jpg",
+      "answers": [
+        {
+          "key": "restart",
+          "text": {
+            "en": "PLAY AGAIN",
+            "ru": "СНАЧАЛА"
+          },
+          "nextSceneId": "welcome"
+        }
+      ]
+    },
+
+    {
+      "id": "question15",
+      "type": "question",
+      "text": {
+        "en": "You reach a massive door covered with strange symbols. Do you use the item you found or try to break it?",
+        "ru": "Перед вами массивная дверь со странными символами. Использовать найденный предмет или сломать дверь?"
+      },
+      "imagePath": "/images/desktop/question_15.jpg",
+      "answers": [
+        {
+          "key": "break",
+          "text": {
+            "en": "BREAK",
+            "ru": "СЛОМАТЬ"
+          },
+          "nextSceneId": "gameover15"
+        },
+        {
+          "key": "use",
+          "text": {
+            "en": "USE",
+            "ru": "ИСПОЛЬЗОВАТЬ"
+          },
+          "nextSceneId": "question16"
+        }
+      ]
+    },
+
+    {
+      "id": "gameover15",
+      "type": "gameover",
+      "text": {
+        "en": "You tried to break the door and triggered a deadly trap!",
+        "ru": "Вы попытались сломать дверь и активировали смертельную ловушку!"
+      },
+      "imagePath": "/images/desktop/question_15_Death.jpg",
+      "answers": [
+        {
+          "key": "restart",
+          "text": {
+            "en": "PLAY AGAIN",
+            "ru": "СНАЧАЛА"
+          },
+          "nextSceneId": "welcome"
+        }
+      ]
+    },
+
+    {
+      "id": "question16",
+      "type": "question",
+      "text": {
+        "en": "A hall filled with gold and ancient chests appears before you. Do you open a chest or continue forward?",
+        "ru": "Перед вами открывается зал, наполненный золотом и древними сундуками. Открыть сундук или продолжить путь?"
+      },
+      "imagePath": "/images/desktop/question_16.jpg",
+      "answers": [
+        {
+          "key": "open",
+          "text": {
+            "en": "OPEN",
+            "ru": "ОТКРЫТЬ"
+          },
+          "nextSceneId": "gameover16"
+        },
+        {
+          "key": "forward",
+          "text": {
+            "en": "FORWARD",
+            "ru": "ВПЕРЁД"
+          },
+          "nextSceneId": "question17"
+        }
+      ]
+    },
+
+    {
+      "id": "gameover16",
+      "type": "gameover",
+      "text": {
+        "en": "You opened a cursed chest and were consumed by dark magic!",
+        "ru": "Вы открыли проклятый сундук, и тёмная магия поглотила вас!"
+      },
+      "imagePath": "/images/desktop/question_16_Death.jpg",
+      "answers": [
+        {
+          "key": "restart",
+          "text": {
+            "en": "PLAY AGAIN",
+            "ru": "СНАЧАЛА"
+          },
+          "nextSceneId": "welcome"
+        }
+      ]
+    },
+
+    {
+      "id": "question17",
+      "type": "question",
+      "text": {
+        "en": "An ancient mirror shows you sitting on the castle throne. Do you touch the reflection or break the mirror?",
+        "ru": "Древнее зеркало показывает вас сидящим на троне замка. Коснуться отражения или разбить зеркало?"
+      },
+      "imagePath": "/images/desktop/question_17.jpg",
+      "answers": [
+        {
+          "key": "touch",
+          "text": {
+            "en": "TOUCH",
+            "ru": "КОСНУТЬСЯ"
+          },
+          "nextSceneId": "gameover17"
+        },
+        {
+          "key": "break",
+          "text": {
+            "en": "BREAK",
+            "ru": "СЛОМАТЬ"
+          },
+          "nextSceneId": "question18"
+        }
+      ]
+    },
+
+    {
+      "id": "gameover17",
+      "type": "gameover",
+      "text": {
+        "en": "Your reflection stepped out of the mirror and took your place forever!",
+        "ru": "Ваше отражение вышло из зеркала и навсегда заняло ваше место!"
+      },
+      "imagePath": "/images/desktop/question_17_Death.jpg",
+      "answers": [
+        {
+          "key": "restart",
+          "text": {
+            "en": "PLAY AGAIN",
+            "ru": "СНАЧАЛА"
+          },
+          "nextSceneId": "welcome"
+        }
+      ]
+    },
+
+    {
+      "id": "question18",
+      "type": "question",
+      "text": {
+        "en": "Heavy, vibrating breathing echoes from behind the stone collapse. You stand in pitch darkness. Do you light a torch or stay hidden in the dark?",
+        "ru": "Из-за завала доносится тяжёлое дыхание. Зажечь факел или остаться во тьме?"
+      },
+      "imagePath": "/images/desktop/question_18.jpg",
+      "answers": [
+        {
+          "key": "dark",
+          "text": {
+            "en": "DARK",
+            "ru": "ТЬМА"
+          },
+          "nextSceneId": "question19"
+        },
+        {
+          "key": "torch",
+          "text": {
+            "en": "TORCH",
+            "ru": "ФАКЕЛ"
+          },
+          "nextSceneId": "gameover18"
+        }
+      ]
+    },
+
+    {
+      "id": "gameover18",
+      "type": "gameover",
+      "text": {
+        "en": "You revealed your position with fire. Something ancient opened its eyes behind the stone wall. You never had a chance to run.",
+        "ru": "Вы выдали своё местоположение светом. За каменной стеной пробудилось нечто древнее. У вас не было ни единого шанса убежать."
+      },
+      "imagePath": "/images/desktop/question_18_Death.jpg",
+      "answers": [
+        {
+          "key": "restart",
+          "text": {
+            "en": "PLAY AGAIN",
+            "ru": "СНАЧАЛА"
+          },
+          "nextSceneId": "welcome"
+        }
+      ]
+    },
+
+    {
+      "id": "question19",
+      "type": "question",
+      "text": {
+        "en": "The dragon awakens! Do you attack immediately or hide?",
+        "ru": "Дракон пробуждается! Атаковать немедленно или спрятаться?"
+      },
+      "imagePath": "/images/desktop/question_19.jpg",
+      "answers": [
+        {
+          "key": "attack",
+          "text": {
+            "en": "ATTACK",
+            "ru": "АТАКОВАТЬ"
+          },
+          "nextSceneId": "gameover19"
+        },
+        {
+          "key": "hide",
+          "text": {
+            "en": "HIDE",
+            "ru": "СПРЯТАТЬСЯ"
+          },
+          "nextSceneId": "question20"
+        }
+      ]
+    },
+
+    {
+      "id": "gameover19",
+      "type": "gameover",
+      "text": {
+        "en": "You attacked the dragon without preparation and got incinerated!",
+        "ru": "Вы атаковали дракона неподготовленным и были испепелены!"
+      },
+      "imagePath": "/images/desktop/question_19_Death.jpg",
+      "answers": [
+        {
+          "key": "restart",
+          "text": {
+            "en": "PLAY AGAIN",
+            "ru": "СНАЧАЛА"
+          },
+          "nextSceneId": "welcome"
+        }
+      ]
+    },
+
+    {
+      "id": "question20",
+      "type": "question",
+      "text": {
+        "en": "The wounded dragon prepares one final blast. A loaded ballista stands on the balcony, while a sword lies at your feet. What do you choose?",
+        "ru": "Дракон собирает силы для последнего удара. Меч у ваших ног, баллиста — на балконе. Что выберете?"
+      },
+      "imagePath": "/images/desktop/question_20.jpg",
+      "answers": [
+        {
+          "key": "ballista",
+          "text": {
+            "en": "BALLISTA",
+            "ru": "БАЛЛИСТА"
+          },
+          "nextSceneId": "question21"
+        },
+        {
+          "key": "sword",
+          "text": {
+            "en": "SWORD",
+            "ru": "МЕЧ"
+          },
+          "nextSceneId": "gameover20"
+        }
+      ]
+    },
+
+    {
+      "id": "gameover20",
+      "type": "gameover",
+      "text": {
+        "en": "You charged the enormous beast armed with nothing but a sword. The dragon barely noticed your attack — a single sweep of its massive wing knocked you from your feet, and the wave of fire that followed reduced everything to ash!",
+        "ru": "Вы ринулись на гигантскую тушу с одним лишь мечом. Дракон даже не заметил вашей атаки — единый взмах огромного крыла сбил вас с ног, а следом волна пламени испепелила всё дотла!"
+      },
+      "imagePath": "/images/desktop/question_20_Death.jpg",
+      "answers": [
+        {
+          "key": "restart",
+          "text": {
+            "en": "PLAY AGAIN",
+            "ru": "СНАЧАЛА"
+          },
+          "nextSceneId": "welcome"
+        }
+      ]
+    },
+
+    {
+      "id": "question21",
+      "type": "question",
+      "text": {
+        "en": "The dragon is defeated. Do you sit upon the throne or leave the castle?",
+        "ru": "Дракон повержен. Занять трон или покинуть замок?"
+      },
+      "imagePath": "/images/desktop/question_21.jpg",
+      "answers": [
+        {
+          "key": "throne",
+          "text": {
+            "en": "THRONE",
+            "ru": "ТРОН"
+          },
+          "nextSceneId": "victory"
+        },
+        {
+          "key": "leave",
+          "text": {
+            "en": "LEAVE",
+            "ru": "УЙТИ"
+          },
+          "nextSceneId": "gameover21"
+        }
+      ]
+    },
+
+    {
+      "id": "gameover21",
+      "type": "gameover",
+      "text": {
+        "en": "You left the castle without claiming your victory!",
+        "ru": "Вы покинули замок, так и не заявив права на свою победу!"
+      },
+      "imagePath": "/images/desktop/question_21_Death.jpg",
+      "answers": [
+        {
+          "key": "restart",
+          "text": {
+            "en": "PLAY AGAIN",
+            "ru": "СНАЧАЛА"
+          },
+          "nextSceneId": "welcome"
+        }
+      ]
+    },
+
+    {
+      "id": "victory",
+      "type": "victory",
+      "text": {
+        "en": "The dragon has fallen.\n\nThe throne is yours, and the ancient castle bows to its new ruler.\nYou survived every trap, faced every horror, and conquered what no one before you could.\nYour journey is complete.",
+        "ru": "Дракон повержен.\n\nТрон принадлежит вам, а древний замок склоняется перед своим новым правителем.\nВы пережили каждую ловушку, встретились с каждым кошмаром и покорили то, что не удавалось никому прежде.\nВаше путешествие завершено."
+      },
+      "imagePath": "/images/desktop/Viktory.jpg",
+      "answers": [
+        {
+          "key": "restart",
+          "text": {
+            "en": "PLAY AGAIN",
+            "ru": "Играть Заново"
+          },
+          "nextSceneId": "welcome"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2098 @@
+/* ====================================================================== */
+/* 01. FONTS */
+/* ====================================================================== */
+
+@font-face {
+    font-family: "Carol Gothic";
+    src: url("/fonts/Carol%20Gothic%20W10%20Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Alice";
+    src: url("/fonts/Alice_in_Wonderland_3.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "EB Garamond";
+    src: url("/fonts/eb-garamond-italic.ttf") format("truetype");
+    font-weight: 400;
+    font-style: italic;
+}
+
+/* ====================================================================== */
+/* 02. GLOBAL / BASE */
+/* ====================================================================== */
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    cursor: url("/cursors/dragon_cursor.cur"), auto;
+}
+
+#game {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: #000;
+    opacity: 0;
+    transition: opacity 1800ms ease-in-out;
+}
+
+#scene-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 1.4s ease-in-out;
+}
+
+#scene-image-next {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.7s ease-in-out;
+}
+
+#scene-image-next.visible {
+    opacity: 1;
+}
+
+#scene-text {
+    margin-bottom: 30px;
+}
+
+#answers {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+#answers button {
+    padding: 14px 32px;
+    font-size: 18px;
+    color: white;
+    background: rgba(0, 0, 0, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+#answers button:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: white;
+}
+
+#game-panel {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    text-align: center;
+    color: #2b2118;
+    opacity: 1;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+* {
+    cursor: inherit;
+}
+
+/* ====================================================================== */
+/* 03. BACKGROUND / SCENE EFFECTS */
+/* ====================================================================== */
+
+#fire-video,
+#smoke-video,
+#overlay,
+#color-grade,
+#vignette {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#fire-video,
+#smoke-video {
+    object-fit: cover;
+    pointer-events: none;
+    transition: opacity 1.4s ease-in-out;
+}
+
+#fire-video {
+    z-index: 2;
+    opacity: 0.6;
+    filter: brightness(1.20) contrast(1.5) saturate(1.4);
+}
+
+#smoke-video {
+    z-index: 3;
+    opacity: 0.35;
+    mix-blend-mode: screen;
+    filter: brightness(1.05) contrast(1.1);
+}
+
+#game:not(.page-loaded) #fire-video,
+#game:not(.page-loaded) #smoke-video {
+    opacity: 0;
+}
+
+/* ====================================================================== */
+/* 04. SHARED TRANSITIONS / POPUP */
+/* ====================================================================== */
+
+#game-panel.panel-changing {
+    opacity: 0;
+    transform: translate(-50%, -48%);
+}
+
+#popup {
+    position: fixed;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.85);
+    border: 2px solid #bfa76f;
+    color: #f5d7a1;
+    padding: 12px 20px;
+    border-radius: 10px;
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+#popup.show {
+    opacity: 1;
+}
+
+#game.page-loaded #scene-image {
+    opacity: 1;
+}
+
+#game:not(.page-loaded) #game-panel {
+    opacity: 0;
+    transform: translate(-50%, -48%);
+}
+
+#game.initial-loading #game-panel {
+    transition: opacity 1.4s ease-in-out, transform 1.4s ease-in-out;
+}
+
+#game.intro-finished {
+    opacity: 1;
+}
+
+/* ====================================================================== */
+/* 05. PRE-WELCOME */
+/* ====================================================================== */
+
+/* ---------------------------------------------------------------------- */
+/* STAGE / VIDEO / OVERLAY */
+/* ---------------------------------------------------------------------- */
+
+#pre-welcome {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: #000;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 1600ms ease-in-out;
+}
+
+#pre-welcome-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+#pre-welcome-overlay {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient( circle at center, rgba(0, 0, 0, 0.10) 0%, rgba(0, 0, 0, 0.28) 55%, rgba(0, 0, 0, 0.72) 100% ), linear-gradient( 180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.08) 45%, rgba(0, 0, 0, 0.48) 100% );
+    z-index: 1;
+}
+
+/* ---------------------------------------------------------------------- */
+/* CONTENT */
+/* ---------------------------------------------------------------------- */
+
+#pre-welcome-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+#pre-welcome-panel {
+    width: min(900px, 88vw);
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+    background: none;
+    border: none;
+    box-shadow: none;
+    backdrop-filter: none;
+    border-radius: 0;
+}
+
+#pre-welcome-title {
+    margin: 0 0 32px;
+    font-family: "Alice", serif;
+    font-size: clamp(46px, 4.3vw, 76px);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: 4px;
+    text-align: center;
+    color: #e8ecef;
+    -webkit-text-stroke: 0.6px rgba(255, 255, 255, 0.18);
+    text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.55), 0 1px 0 rgba(20, 24, 28, 0.95), 0 2px 2px rgba(0, 0, 0, 0.95), 0 0 4px rgba(210, 225, 235, 0.22), 0 0 10px rgba(170, 200, 220, 0.14);
+}
+
+#pre-welcome-text {
+    margin: 0 0 40px;
+    font-family: "Alice", serif;
+    font-size: 22px;
+    line-height: 1.5;
+    letter-spacing: 1.5px;
+    color: rgba(220, 225, 230, 0.9);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 1);
+}
+
+/* ---------------------------------------------------------------------- */
+/* ENTER BUTTON */
+/* ---------------------------------------------------------------------- */
+
+#pre-welcome-enter-button {
+    min-width: 310px;
+    height: 64px;
+    padding: 0 36px;
+    border: 1px solid rgba(205, 220, 230, 0.38);
+    outline: none;
+    background: linear-gradient( 180deg, rgba(42, 50, 58, 0.90), rgba(15, 19, 24, 0.96) );
+    color: #e8ecee;
+    font-family: "Alice", serif;
+    font-size: 23px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 -2px 4px rgba(0, 0, 0, 0.65), 0 8px 24px rgba(0, 0, 0, 0.45);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 1), 0 0 5px rgba(185, 215, 230, 0.12);
+    transition: transform 180ms ease, filter 180ms ease, border-color 180ms ease;
+}
+
+#pre-welcome-enter-button:hover {
+    transform: scale(0.97);
+    filter: brightness(1.10);
+    border-color: rgba(225, 235, 240, 0.55);
+}
+
+#pre-welcome-enter-button:active {
+    transform: scale(0.93);
+}
+
+#pre-welcome.pre-welcome-ready {
+    opacity: 1;
+}
+
+#pre-welcome-video,
+#pre-welcome-overlay,
+#pre-welcome-content {
+    transition: opacity 1400ms ease-in-out, filter 1400ms ease-in-out;
+}
+
+#pre-welcome.pre-welcome-closing #pre-welcome-video,
+#pre-welcome.pre-welcome-closing #pre-welcome-overlay,
+#pre-welcome.pre-welcome-closing #pre-welcome-content {
+    opacity: 0;
+}
+
+/* ---------------------------------------------------------------------- */
+/* JOURNEY MESSAGE */
+/* ---------------------------------------------------------------------- */
+
+#pre-welcome-journey {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    white-space: nowrap;
+    font-family: "Alice", serif;
+    font-size: clamp(38px, 4vw, 70px);
+    font-weight: 400;
+    letter-spacing: 3px;
+    color: #e9eaeb;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 1), 0 0 8px rgba(210, 225, 235, 0.15), 0 0 22px rgba(170, 205, 225, 0.10);
+    filter: blur(5px);
+    transition: opacity 1200ms ease-in-out, filter 1600ms ease-in-out;
+}
+
+#pre-welcome.pre-welcome-journey-visible
+#pre-welcome-journey {
+    opacity: 1;
+    filter: blur(0);
+}
+
+#pre-welcome.pre-welcome-journey-out
+#pre-welcome-journey {
+    opacity: 0;
+    filter: blur(5px);
+}
+
+/* ====================================================================== */
+/* 06. LANGUAGE SWITCH */
+/* ====================================================================== */
+
+/* ---------------------------------------------------------------------- */
+/* SWITCH CONTAINER */
+/* ---------------------------------------------------------------------- */
+
+#language-switch {
+    position: absolute;
+    top: 25px;
+    right: 35px;
+    width: 112px;
+    height: 38px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 12px;
+    background: linear-gradient( 180deg, rgba(32, 23, 15, 0.88) 0%, rgba(15, 10, 7, 0.94) 100% );
+    border: 1px solid rgba(174, 125, 58, 0.72);
+    box-shadow: inset 0 1px 0 rgba(255, 220, 145, 0.10), inset 0 -1px 0 rgba(0, 0, 0, 0.75), 0 2px 7px rgba(0, 0, 0, 0.55), 0 0 8px rgba(145, 92, 32, 0.10);
+    z-index: 40;
+    opacity: 0;
+    transition: opacity 700ms ease-in-out, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+#game.intro-finished #language-switch {
+    opacity: 1;
+}
+
+#language-switch::before,
+#language-switch::after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    pointer-events: none;
+}
+
+#language-switch::before {
+    top: -1px;
+    left: -1px;
+    border-top: 2px solid rgba(213, 166, 87, 0.78);
+    border-left: 2px solid rgba(213, 166, 87, 0.78);
+}
+
+#language-switch::after {
+    right: -1px;
+    bottom: -1px;
+    border-right: 2px solid rgba(213, 166, 87, 0.78);
+    border-bottom: 2px solid rgba(213, 166, 87, 0.78);
+}
+
+/* ---------------------------------------------------------------------- */
+/* LANGUAGE BUTTONS */
+/* ---------------------------------------------------------------------- */
+
+#language-switch button {
+    padding: 0;
+    border: none;
+    outline: none;
+    background: none;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: opacity 180ms ease, filter 180ms ease, text-shadow 180ms ease;
+}
+
+#language-switch button[aria-pressed="false"] {
+    color: rgba(145, 105, 57, 0.62);
+    opacity: 0.72;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.95);
+}
+
+#language-switch button[aria-pressed="true"] {
+    color: #e5c47d;
+    opacity: 1;
+    text-shadow: 0 1px 0 rgba(53, 26, 7, 0.95), 0 0 4px rgba(235, 181, 86, 0.42), 0 0 9px rgba(190, 121, 39, 0.22);
+}
+
+#language-switch button:hover {
+    opacity: 1;
+    filter: brightness(1.18);
+    text-shadow: 0 1px 0 rgba(53, 26, 7, 0.95), 0 0 5px rgba(244, 194, 101, 0.48), 0 0 10px rgba(190, 121, 39, 0.24);
+}
+
+/* ---------------------------------------------------------------------- */
+/* SWITCH CONTAINER */
+/* ---------------------------------------------------------------------- */
+
+#language-separator {
+    color: rgba(167, 120, 60, 0.55);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 15px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.95);
+}
+
+/* ====================================================================== */
+/* 07. WELCOME */
+/* ====================================================================== */
+
+/* ---------------------------------------------------------------------- */
+/* PANEL */
+/* ---------------------------------------------------------------------- */
+
+.welcome-panel {
+    width: min(1400px, 96vw);
+    aspect-ratio: 3344 / 1882;
+    padding: 0;
+    background-image: url("/images/ui/central_Welcome_panel.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+/* ---------------------------------------------------------------------- */
+/* TITLE */
+/* ---------------------------------------------------------------------- */
+
+.welcome-panel #scene-title {
+    position: absolute;
+    top: 13.5%;
+    left: 50.3%;
+    transform: translateX(-50%);
+    width: 78%;
+    margin: 0;
+    font-family: "Carol Gothic", serif;
+    font-size: clamp(50px, 4.7vw, 78px);
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 1px;
+    text-align: center;
+    white-space: nowrap;
+    background: linear-gradient(110deg, transparent 0%, transparent 28%, rgba(255, 210, 112, 0.05) 33%, rgba(255, 224, 143, 0.13) 37%, rgba(255, 244, 202, 0.26) 40%, rgba(255, 218, 126, 0.12) 42%, rgba(255, 214, 116, 0.18) 44%, rgba(255, 232, 164, 0.38) 47%, rgba(255, 248, 218, 0.82) 49%, rgba(255, 255, 239, 0.98) 50%, rgba(255, 244, 205, 0.78) 51%, rgba(255, 226, 148, 0.38) 54%, rgba(255, 202, 91, 0.17) 58%, rgba(255, 239, 183, 0.20) 61%, rgba(255, 207, 101, 0.07) 63%, transparent 68%, transparent 100%), linear-gradient(180deg, #fff4bd 0%, #ffe69a 7%, #f5cc72 15%, #dca34a 27%, #c78932 40%, #efc66e 49%, #ffd989 54%, #d99c3f 61%, #bd7627 73%, #9b5b1d 87%, #6f3910 100%);
+    background-size: 450% 100%, 100% 100%;
+    background-position: 100% 50%, center;
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter: drop-shadow(0 -1px 0 rgba(255, 235, 165, 0.34)) drop-shadow(0 1px 0 rgba(102, 53, 12, 0.88)) drop-shadow(0 2px 1px rgba(35, 17, 4, 0.90)) drop-shadow(0 0 2px rgba(255, 194, 82, 0.34)) drop-shadow(0 0 5px rgba(201, 126, 34, 0.14));
+    animation: welcome-title-flashlight 10s linear infinite;
+    z-index: 2;
+}
+
+/* ---------------------------------------------------------------------- */
+/* VISIBILITY / LAYOUT */
+/* ---------------------------------------------------------------------- */
+
+.welcome-panel #question-controls {
+    display: none;
+}
+
+.welcome-panel #welcome-controls {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    visibility: visible;
+    pointer-events: auto;
+    z-index: 2;
+}
+
+/* ---------------------------------------------------------------------- */
+/* MUSIC CONTROLS */
+/* ---------------------------------------------------------------------- */
+
+.welcome-panel #music-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 26px;
+    margin-top: 18px;
+}
+
+.welcome-panel #music-controls button {
+    width: 205px;
+    height: 48px;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: url("/images/ui/Sound_Button.png") no-repeat center / 100% 100%;
+    color: #dfbd78;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.8px;
+    cursor: pointer;
+    text-shadow: 0 1px 1px rgba(20, 8, 2, 0.95), 0 0 4px rgba(223, 169, 81, 0.25);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 180ms ease, filter 180ms ease;
+}
+
+/* ---------------------------------------------------------------------- */
+/* VISIBILITY / LAYOUT */
+/* ---------------------------------------------------------------------- */
+
+.welcome-panel #answers {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------- */
+/* SUBTITLE / ORNAMENTS */
+/* ---------------------------------------------------------------------- */
+
+.welcome-panel #scene-text {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.3px;
+    background: linear-gradient( 180deg, #fff0b0 0%, #e8c276 30%, #c99545 55%, #edc878 76%, #a96c27 100% );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    text-align: center;
+    white-space: nowrap;
+    filter: drop-shadow(0 1px 0 rgba(43, 20, 4, 0.90)) drop-shadow(0 0 3px rgba(224, 163, 68, 0.20));
+    z-index: 2;
+}
+
+/* ---------------------------------------------------------------------- */
+/* PLAYER NAME */
+/* ---------------------------------------------------------------------- */
+
+.welcome-panel #enter-name-row {
+    position: absolute;
+    top: 37%;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    width: 60%;
+    z-index: 2;
+}
+
+.welcome-panel .enter-name-ornament {
+    width: 130px;
+    height: auto;
+    display: block;
+}
+
+.welcome-panel #enter-name-label {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    background: linear-gradient( 180deg, #fff0ad 0%, #e8bd69 28%, #c78b36 55%, #e1ae55 72%, #94551d 100% );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    white-space: nowrap;
+    filter: drop-shadow(0 -1px 0 rgba(255, 230, 155, 0.22)) drop-shadow(0 1px 0 rgba(72, 34, 7, 0.90)) drop-shadow(0 0 3px rgba(221, 151, 54, 0.18));
+}
+
+/* ---------------------------------------------------------------------- */
+/* SUBTITLE / ORNAMENTS */
+/* ---------------------------------------------------------------------- */
+
+.welcome-panel #scene-text::before,
+.welcome-panel #scene-text::after {
+    content: "";
+    display: block;
+    width: 290px;
+    height: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.welcome-panel #scene-text::before {
+    background-image: url("/images/ui/small_separator_under_the_subtitle_from_above.png");
+    margin-bottom: 6px;
+}
+
+.welcome-panel #scene-text::after {
+    background-image: url("/images/ui/small_separator_under_the_subtitle_from_below.png");
+    margin-top: 6px;
+}
+
+/* ---------------------------------------------------------------------- */
+/* PLAYER NAME */
+/* ---------------------------------------------------------------------- */
+
+.welcome-panel #player-name {
+    width: 450px;
+    height: 62px;
+    box-sizing: border-box;
+    padding: 0 28px 0 78px;
+    border: none;
+    outline: none;
+    background: url("/images/ui/golden_coat_of_arms.png") no-repeat 22px center / 38px auto, url("/images/ui/empty_name_field.png") no-repeat center / 100% 100%;
+    color: #d9b06a;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 0.4px;
+    text-align: left;
+    caret-color: #e6c887;
+}
+
+.welcome-panel #player-name::placeholder {
+    color: rgba(217, 176, 106, 0.82);
+    font-style: italic;
+}
+
+.welcome-panel #player-name:focus {
+    outline: none;
+}
+
+/* ---------------------------------------------------------------------- */
+/* MUSIC CONTROLS */
+/* ---------------------------------------------------------------------- */
+
+.welcome-panel #music-controls button span {
+    position: relative;
+    z-index: 2;
+    transform: translateX(0);
+    transition: color 180ms ease, text-shadow 180ms ease;
+}
+
+.welcome-panel .music-button-icon {
+    position: absolute;
+    left: 14%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    z-index: 2;
+    filter: brightness(1.8) contrast(1.15) saturate(1.5) drop-shadow(0 0 3px rgba(255, 174, 55, 0.65));
+    transition: filter 180ms ease, transform 180ms ease;
+}
+
+/* ---------------------------------------------------------------------- */
+/* START GAME */
+/* ---------------------------------------------------------------------- */
+
+.welcome-panel #start-game-control {
+    position: absolute;
+    top: 59.5%;
+    left: 50.1%;
+    transform: translateX(-50%);
+    width: 30%;
+    z-index: 3;
+}
+
+.welcome-panel #start-game-visual {
+    position: relative;
+    display: block;
+    width: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.welcome-panel #start-game-red {
+    position: relative;
+    display: block;
+    left: 50%;
+    width: 101%;
+    height: auto;
+    transform: translateX(-50%);
+    transition: transform 180ms ease, filter 180ms ease;
+}
+
+.welcome-panel #start-game-text {
+    position: absolute;
+    left: 50%;
+    top: 54%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    white-space: nowrap;
+    color: #e7c77d;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(16px, 1.55vw, 30px);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-shadow: 0 1px 1px #000, 0 0 5px rgba(255, 174, 55, 0.35);
+    pointer-events: none;
+    transition: transform 180ms ease, text-shadow 180ms ease;
+}
+
+.welcome-panel #start-game-frame {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: auto;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.welcome-panel #start-game-button {
+    position: absolute;
+    left: 50%;
+    top: 54%;
+    transform: translate(-50%, -50%);
+    width: 72%;
+    height: 34%;
+    padding: 0;
+    margin: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.welcome-panel #start-game-control:has(#start-game-button:hover) #start-game-red {
+    transform: translateX(-50%) scale(0.96);
+    filter: brightness(1.08) saturate(1.08);
+}
+
+.welcome-panel #start-game-control:has(#start-game-button:hover) #start-game-text {
+    transform: translate(-50%, -50%) scale(0.96);
+    text-shadow: 0 1px 1px #000, 0 0 7px rgba(255, 190, 85, 0.45);
+}
+
+/* ---------------------------------------------------------------------- */
+/* MUSIC CONTROLS */
+/* ---------------------------------------------------------------------- */
+
+.welcome-panel #music-controls button:hover {
+    transform: scale(0.96);
+}
+
+.welcome-panel #music-controls button:hover span {
+    color: #f0d18d;
+    text-shadow: 0 1px 1px rgba(20, 8, 2, 0.95), 0 0 4px rgba(255, 190, 85, 0.32), 0 0 8px rgba(215, 143, 47, 0.16);
+}
+
+.welcome-panel #music-controls button:hover .music-button-icon {
+    filter: brightness(2.0) contrast(1.12) saturate(1.6) drop-shadow(0 0 4px rgba(255, 185, 68, 0.72));
+}
+
+.welcome-panel #music-controls button:active {
+    transform: scale(0.92);
+}
+
+.welcome-panel #music-controls button:active span {
+    color: #f6d99a;
+    text-shadow: 0 1px 1px rgba(20, 8, 2, 0.95), 0 0 5px rgba(255, 200, 95, 0.38);
+}
+
+.welcome-panel #music-controls button:active .music-button-icon {
+    filter: brightness(2.12) contrast(1.10) saturate(1.65) drop-shadow(0 0 5px rgba(255, 190, 72, 0.78));
+}
+
+/* ---------------------------------------------------------------------- */
+/* START GAME */
+/* ---------------------------------------------------------------------- */
+
+.welcome-panel #start-game-control:has(#start-game-button:active) #start-game-red {
+    transform: translateX(-50%) scale(0.92);
+    filter: brightness(1.14) saturate(1.12);
+}
+
+.welcome-panel #start-game-control:has(#start-game-button:active) #start-game-text {
+    transform: translate(-50%, -50%) scale(0.92);
+    text-shadow: 0 1px 1px #000, 0 0 8px rgba(255, 190, 85, 0.55);
+}
+
+/* ====================================================================== */
+/* 08. QUESTIONS */
+/* ====================================================================== */
+
+/* ---------------------------------------------------------------------- */
+/* STAGE / TRANSITION */
+/* ---------------------------------------------------------------------- */
+
+.question-panel {
+    width: 100vw;
+    height: 100vh;
+    min-height: 0;
+    padding: 0;
+    background: none;
+    position: relative;
+    overflow: visible;
+}
+
+.question-panel #enter-name-row {
+    display: none;
+}
+
+.question-panel #welcome-controls,
+.question-panel #start-game-control {
+    display: none;
+}
+
+#game-panel.question-panel {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate(-50%, -50%);
+    transition: opacity 1200ms ease-in-out, filter 1200ms ease-in-out;
+}
+
+#game-panel.question-panel.question-changing {
+    opacity: 0;
+    filter: blur(2px);
+    transform: translate(-50%, -50%);
+    transition: opacity 2000ms ease-in-out, filter 2000ms ease-in-out;
+}
+
+/* ---------------------------------------------------------------------- */
+/* QUESTION FRAME / TEXT */
+/* ---------------------------------------------------------------------- */
+
+.question-panel #scene-title {
+    margin: 0 0 22px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #3a1f0d;
+    text-shadow: 0 1px 0 rgba(255, 235, 190, 0.55), 0 2px 3px rgba(70, 35, 10, 0.25);
+}
+
+.question-panel #scene-text {
+    position: absolute;
+    left: 23.2%;
+    top: 34%;
+    transform: none;
+    width: 54%;
+    aspect-ratio: 4.261 / 1;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 5% 10% 8%;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Alice", serif;
+    font-size: clamp(22px, 1.7vw, 32px);
+    font-weight: 500;
+    line-height: 1.45;
+    letter-spacing: 1.8px;
+    color: #f2f2ee;
+    -webkit-text-stroke: 0.8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.95), 1px -1px 0 rgba(0, 0, 0, 0.95), -1px 1px 0 rgba(0, 0, 0, 0.95), 1px 1px 0 rgba(0, 0, 0, 0.95), 0 2px 3px rgba(0, 0, 0, 0.98), 0 0 8px rgba(180, 220, 255, 0.12);
+    z-index: 2;
+}
+
+.question-panel #scene-text::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("/images/ui/question_frame.png") no-repeat center / contain;
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.question-panel #scene-text-content {
+    z-index: 1;
+    display: inline-block;
+    position: relative;
+    top: 15px;
+    opacity: 1;
+    filter: blur(0);
+    transform: translate3d(0, 0, 0);
+    will-change: opacity, filter, transform;
+    backface-visibility: hidden;
+}
+
+.question-panel #scene-text-content.text-smoke-out {
+    animation: question-text-smoke-out 700ms cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+.question-panel #scene-text-content.text-smoke-in {
+    animation: question-text-smoke-in 900ms cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+
+/* ---------------------------------------------------------------------- */
+/* ANSWER OPTIONS */
+/* ---------------------------------------------------------------------- */
+
+.question-panel #question-options {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    pointer-events: none;
+    z-index: 26;
+}
+
+.question-panel .question-option-left,
+.question-panel .question-option-right {
+    position: absolute;
+    top: 68%;
+    font-family: "Alice", serif;
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    color: #d8d9d6;
+    text-transform: uppercase;
+    text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.28), 0 1px 0 rgba(0, 0, 0, 1), 0 0 4px rgba(180, 210, 230, 0.28);
+    white-space: nowrap;
+}
+
+.question-panel .question-option-left {
+    left: 39%;
+    transform: translate(-50%, -50%);
+}
+
+.question-panel .question-option-right {
+    left: 60.5%;
+    transform: translate(-50%, -50%);
+}
+
+.question-panel #question-options::before,
+.question-panel #question-options::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 72%;
+    height: 1px;
+    background: linear-gradient( 90deg, transparent, rgba(125, 72, 31, 0.65), rgba(220, 169, 92, 0.75), rgba(125, 72, 31, 0.65), transparent );
+}
+
+.question-panel #question-options::before {
+    top: 0;
+}
+
+.question-panel #question-options::after {
+    bottom: 0;
+}
+
+/* ---------------------------------------------------------------------- */
+/* ANSWER INPUT */
+/* ---------------------------------------------------------------------- */
+
+.question-panel #answer-input {
+    position: absolute;
+    left: 54%;
+    top: 80.3%;
+    transform: translate(-50%, -50%);
+    width: 25%;
+    height: 5%;
+    box-sizing: border-box;
+    padding: 0 18px;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #d8d9d6;
+    font-family: "Alice", serif;
+    font-size: 28px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1.4px;
+    text-align: left;
+    caret-color: #e3e5e2;
+    text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.35), 0 1px 0 rgba(0, 0, 0, 1), 0 0 4px rgba(180, 210, 230, 0.45), 0 0 8px rgba(180, 210, 230, 0.35), 0 0 12px rgba(180, 210, 230, 0.25);
+    box-shadow: none;
+    z-index: 27;
+}
+
+.question-panel #answer-input::placeholder {
+    background: linear-gradient( 180deg, #ffffff 0%, #d9eef7 35%, #b4d7e8 55%, #f7fbff 75%, #8fb4c6 100% );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: rgba(210, 212, 215, 0.75);
+    font-style: normal;
+    letter-spacing: 1.1px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.9);
+}
+
+.question-panel #answer-input:focus {
+    border: none;
+    outline: none;
+    background: transparent;
+    box-shadow: none;
+    transform: translate(-50%, -50%);
+}
+
+/* ---------------------------------------------------------------------- */
+/* CHOICE PLATES */
+/* ---------------------------------------------------------------------- */
+
+#question-choices-visual {
+    display: none;
+}
+
+.question-panel #question-choices-visual {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 25;
+    display: block;
+}
+
+.question-panel #choice-left-image {
+    position: absolute;
+    left: 23.6%;
+    top: 60.5%;
+    width: 25.6%;
+    height: auto;
+    display: block;
+}
+
+.question-panel #choice-right-image {
+    position: absolute;
+    left: 50.4%;
+    top: 60.5%;
+    width: 25.5%;
+    height: auto;
+    display: block;
+}
+
+/* ---------------------------------------------------------------------- */
+/* ANSWER INPUT */
+/* ---------------------------------------------------------------------- */
+
+#question-input-visual {
+    display: none;
+}
+
+.question-panel #question-input-visual {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 24;
+}
+
+.question-panel #input-frame-image {
+    position: absolute;
+    left: 33%;
+    top: 75%;
+    width: 38%;
+    height: auto;
+    display: block;
+}
+
+/* ---------------------------------------------------------------------- */
+/* SUBMIT */
+/* ---------------------------------------------------------------------- */
+
+.question-panel #submit-answer-control {
+    position: absolute;
+    left: 50%;
+    top: 88%;
+    transform: translateX(-50%);
+    width: 25%;
+    z-index: 30;
+}
+
+.question-panel #submit-answer-visual {
+    position: relative;
+    width: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.question-panel #submit-answer-red {
+    position: relative;
+    display: block;
+    left: 50%;
+    width: 80%;
+    height: auto;
+    transform: translateX(-50%);
+    transition: transform 180ms ease, filter 180ms ease;
+    opacity: 0.50;
+}
+
+.question-panel #submit-answer-text {
+    position: absolute;
+    left: 50%;
+    top: 52%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    white-space: nowrap;
+    color: #d8d8d4;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(16px, 1.45vw, 28px);
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.95), 0 0 5px rgba(180, 200, 210, 0.15);
+    pointer-events: none;
+}
+
+.question-panel #submit-answer-frame {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 106%;
+    height: auto;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.question-panel #submit-answer-button {
+    position: absolute;
+    left: 50%;
+    top: 52%;
+    transform: translate(-50%, -50%);
+    width: 68%;
+    height: 80%;
+    padding: 0;
+    margin: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.question-panel #submit-answer-control:has(#submit-answer-button:hover)
+#submit-answer-red {
+    transform: translateX(-50%) scale(0.96);
+    filter: brightness(1.08) saturate(1.08);
+}
+
+.question-panel #submit-answer-control:has(#submit-answer-button:active)
+#submit-answer-red {
+    transform: translateX(-50%) scale(0.92);
+    filter: brightness(1.14) saturate(1.12);
+}
+
+/* ---------------------------------------------------------------------- */
+/* CHOICE PLATES */
+/* ---------------------------------------------------------------------- */
+
+.question-panel #choice-left-image,
+.question-panel #choice-right-image,
+.question-panel #input-frame-image,
+.question-panel #submit-answer-frame {
+    opacity: 0.35;
+}
+
+/* ====================================================================== */
+/* 09. GAME OVER */
+/* ====================================================================== */
+
+/* ---------------------------------------------------------------------- */
+/* LEGACY / BASE ANSWER STYLE */
+/* ---------------------------------------------------------------------- */
+
+.gameover-panel #answers {
+    position: absolute;
+    left: 50%;
+    top: 77%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 30;
+}
+
+.gameover-panel #answers button {
+    padding: 0;
+    border: none;
+    background: none;
+    font-family: "Alice", serif;
+    font-size: clamp(32px, 2.2vw, 48px);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #f2f2ee;
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 1), 1px -1px 0 rgba(0, 0, 0, 1), -1px 1px 0 rgba(0, 0, 0, 1), 1px 1px 0 rgba(0, 0, 0, 1), 0 3px 5px rgba(0, 0, 0, 1), 0 0 10px rgba(220, 220, 220, 0.2);
+    cursor: pointer;
+    transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.gameover-panel #answers button:hover {
+    transform: scale(1.08);
+    opacity: 0.9;
+    background: none;
+    border: none;
+}
+
+.gameover-panel #answers button:active {
+    transform: scale(0.96);
+}
+
+/* ---------------------------------------------------------------------- */
+/* STAGE */
+/* ---------------------------------------------------------------------- */
+
+#game-panel.gameover-panel {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    background: none;
+    overflow: hidden;
+    transform: translate(-50%, -50%);
+}
+
+/* ---------------------------------------------------------------------- */
+/* HIDE FOREIGN UI */
+/* ---------------------------------------------------------------------- */
+
+#game-panel.gameover-panel #enter-name-row {
+    display: none !important;
+}
+
+#game-panel.gameover-panel #welcome-controls,
+#game-panel.gameover-panel #start-game-control {
+    display: none !important;
+}
+
+#game-panel.gameover-panel #question-controls,
+#game-panel.gameover-panel #question-options,
+#game-panel.gameover-panel #question-choices-visual,
+#game-panel.gameover-panel #question-input-visual,
+#game-panel.gameover-panel #question-ui {
+    display: none !important;
+}
+
+/* ---------------------------------------------------------------------- */
+/* TITLE */
+/* ---------------------------------------------------------------------- */
+
+#game-panel.gameover-panel #scene-title {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    margin: 0;
+    font-family: "Alice", serif;
+    font-size: clamp(36px, 3vw, 56px);
+    font-weight: 400;
+    letter-spacing: 3px;
+    color: #f0f0ec;
+    text-align: center;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 3px 5px rgba(0, 0, 0, 1), 0 0 10px rgba(210, 220, 225, 0.18);
+    z-index: 20;
+}
+
+/* ---------------------------------------------------------------------- */
+/* DEATH TEXT */
+/* ---------------------------------------------------------------------- */
+
+#game-panel.gameover-panel #scene-text {
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: translateX(-50%);
+    width: 54%;
+    aspect-ratio: 4.261 / 1;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 4.5% 9% 6%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    font-family: "Alice", serif;
+    font-size: clamp(23px, 1.65vw, 33px);
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 1.4px;
+    color: #f2f2ee;
+    text-align: center;
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.95), 1px -1px 0 rgba(0, 0, 0, 0.95), -1px 1px 0 rgba(0, 0, 0, 0.95), 1px 1px 0 rgba(0, 0, 0, 0.95), 0 2px 3px rgba(0, 0, 0, 0.98);
+    z-index: 20;
+}
+
+#game-panel.gameover-panel #scene-text-content {
+    position: relative;
+    top: 8px;
+    z-index: 1;
+}
+
+/* ---------------------------------------------------------------------- */
+/* PLAY AGAIN */
+/* ---------------------------------------------------------------------- */
+
+#game-panel.gameover-panel #answers {
+    position: absolute;
+    left: 50%;
+    top: 86%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    visibility: visible !important;
+    z-index: 30;
+}
+
+#game-panel.gameover-panel #answers button {
+    width: auto;
+    height: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    border: none !important;
+    outline: none;
+    border-radius: 0 !important;
+    background: none !important;
+    box-shadow: none !important;
+    font-family: "Alice", serif;
+    font-size: clamp(34px, 2.3vw, 50px);
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #f2f2ee;
+    text-transform: uppercase;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 3px 5px rgba(0, 0, 0, 1), 0 0 8px rgba(220, 225, 230, 0.20);
+    cursor: pointer;
+    transition: transform 180ms ease, filter 180ms ease;
+}
+
+#game-panel.gameover-panel #answers button:hover {
+    background: none !important;
+    border: none !important;
+    transform: scale(1.08);
+    filter: brightness(1.18);
+}
+
+#game-panel.gameover-panel #answers button:active {
+    transform: scale(0.95);
+}
+
+/* ====================================================================== */
+/* 10. VICTORY */
+/* ====================================================================== */
+
+/* ---------------------------------------------------------------------- */
+/* INTRO VIDEO */
+/* ---------------------------------------------------------------------- */
+
+#victory-intro {
+    position: fixed;
+    inset: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    background: #000;
+    opacity: 0;
+    transition: opacity 800ms ease-in-out;
+}
+
+#victory-intro.victory-intro-visible {
+    opacity: 1;
+}
+
+#victory-intro.victory-intro-out {
+    opacity: 0;
+}
+
+#victory-intro-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ---------------------------------------------------------------------- */
+/* STAGE */
+/* ---------------------------------------------------------------------- */
+
+#game-panel.victory-panel {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    background: none;
+    overflow: hidden;
+    transform: translate(-50%, -50%);
+}
+
+/* ---------------------------------------------------------------------- */
+/* HIDE FOREIGN UI */
+/* ---------------------------------------------------------------------- */
+
+#game-panel.victory-panel #enter-name-row,
+#game-panel.victory-panel #welcome-controls,
+#game-panel.victory-panel #start-game-control,
+#game-panel.victory-panel #question-controls,
+#game-panel.victory-panel #question-options,
+#game-panel.victory-panel #question-choices-visual,
+#game-panel.victory-panel #question-input-visual,
+#game-panel.victory-panel #question-ui {
+    display: none !important;
+}
+
+/* ---------------------------------------------------------------------- */
+/* TITLE */
+/* ---------------------------------------------------------------------- */
+
+#game-panel.victory-panel #scene-title {
+    display: none !important;
+}
+
+/* ---------------------------------------------------------------------- */
+/* VICTORY TEXT */
+/* ---------------------------------------------------------------------- */
+
+#game-panel.victory-panel #scene-text {
+    position: absolute;
+    left: 50%;
+    top: 59%;
+    transform: translate(-50%, -50%);
+    width: 66%;
+    max-width: 1180px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    font-family: "Alice", serif;
+    font-size: clamp(23px, 1.55vw, 32px);
+    font-weight: 400;
+    line-height: 1.55;
+    letter-spacing: 1.3px;
+    text-align: center;
+    color: #f2f2ee;
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 1), 1px -1px 0 rgba(0, 0, 0, 1), -1px 1px 0 rgba(0, 0, 0, 1), 1px 1px 0 rgba(0, 0, 0, 1), 0 3px 5px rgba(0, 0, 0, 1), 0 0 8px rgba(220, 225, 230, 0.16);
+    z-index: 20;
+}
+
+#game-panel.victory-panel #scene-text::before,
+#game-panel.victory-panel #scene-text::after {
+    display: none !important;
+}
+
+#game-panel.victory-panel #scene-text-content {
+    display: block;
+    position: relative;
+    width: 100%;
+    white-space: pre-line;
+    text-align: center;
+    z-index: 1;
+}
+
+/* ---------------------------------------------------------------------- */
+/* PLAY AGAIN */
+/* ---------------------------------------------------------------------- */
+
+#game-panel.victory-panel #answers {
+    position: absolute;
+    left: 50%;
+    top: 82%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    visibility: visible !important;
+    z-index: 30;
+}
+
+#game-panel.victory-panel #answers button {
+    width: auto;
+    height: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    border: none !important;
+    outline: none !important;
+    border-radius: 0 !important;
+    background: none !important;
+    box-shadow: none !important;
+    font-family: "Alice", serif;
+    font-size: clamp(34px, 2.3vw, 50px);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #f2f2ee;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000, 0 3px 5px rgba(0, 0, 0, 1), 0 0 8px rgba(220, 225, 230, 0.20);
+    cursor: pointer;
+    transition: transform 180ms ease, filter 180ms ease;
+}
+
+#game-panel.victory-panel #answers button:hover {
+    background: none !important;
+    transform: scale(1.08);
+    filter: brightness(1.18);
+}
+
+#game-panel.victory-panel #answers button:active {
+    transform: scale(0.95);
+}
+
+/* ====================================================================== */
+/* 11. LOCALIZATION */
+/* ====================================================================== */
+
+/* ---------------------------------------------------------------------- */
+/* QUESTIONS — RUSSIAN */
+/* ---------------------------------------------------------------------- */
+
+html[lang="ru"] .question-panel #scene-text,
+html[lang="ru"] .question-panel #question-options,
+html[lang="ru"] .question-panel .question-option-left,
+html[lang="ru"] .question-panel .question-option-right,
+html[lang="ru"] .question-panel #answer-input {
+    font-family: "EB Garamond", Georgia, serif !important;
+}
+
+/* ---------------------------------------------------------------------- */
+/* GAME OVER — RUSSIAN */
+/* ---------------------------------------------------------------------- */
+
+html[lang="ru"] #game-panel.gameover-panel #scene-text,
+html[lang="ru"] #game-panel.gameover-panel #scene-text-content {
+    font-family: "EB Garamond", Georgia, serif !important;
+}
+
+/* ---------------------------------------------------------------------- */
+/* VICTORY — RUSSIAN */
+/* ---------------------------------------------------------------------- */
+
+html[lang="ru"] #game-panel.victory-panel #scene-text,
+html[lang="ru"] #game-panel.victory-panel #scene-text-content,
+html[lang="ru"] #game-panel.victory-panel #answers button {
+    font-family: "EB Garamond", Georgia, serif !important;
+}
+
+/* ====================================================================== */
+/* 12. ANIMATIONS */
+/* ====================================================================== */
+
+@keyframes welcome-title-flashlight {
+    0% {
+        background-position: 100% 50%, center;
+        filter: drop-shadow(0 -1px 0 rgba(255, 235, 165, 0.34)) drop-shadow(0 1px 0 rgba(102, 53, 12, 0.88)) drop-shadow(0 2px 1px rgba(35, 17, 4, 0.90)) drop-shadow(0 0 2px rgba(255, 194, 82, 0.30)) drop-shadow(0 0 4px rgba(201, 126, 34, 0.12));
+    }
+    8% {
+        background-position: 90% 50%, center;
+    }
+    70% {
+        background-position: 10% 50%, center;
+        filter: drop-shadow(0 -1px 0 rgba(255, 242, 188, 0.42)) drop-shadow(0 1px 0 rgba(102, 53, 12, 0.86)) drop-shadow(0 2px 1px rgba(35, 17, 4, 0.90)) drop-shadow(0 0 3px rgba(255, 211, 111, 0.42)) drop-shadow(0 0 7px rgba(255, 189, 72, 0.22));
+    }
+    80% {
+        background-position: 0% 50%, center;
+        filter: drop-shadow(0 -1px 0 rgba(255, 235, 165, 0.34)) drop-shadow(0 1px 0 rgba(102, 53, 12, 0.88)) drop-shadow(0 2px 1px rgba(35, 17, 4, 0.90)) drop-shadow(0 0 2px rgba(255, 194, 82, 0.30)) drop-shadow(0 0 4px rgba(201, 126, 34, 0.12));
+    }
+    100% {
+        background-position: 0% 50%, center;
+        filter: drop-shadow(0 -1px 0 rgba(255, 235, 165, 0.34)) drop-shadow(0 1px 0 rgba(102, 53, 12, 0.88)) drop-shadow(0 2px 1px rgba(35, 17, 4, 0.90)) drop-shadow(0 0 2px rgba(255, 194, 82, 0.30)) drop-shadow(0 0 4px rgba(201, 126, 34, 0.12));
+    }
+}
+
+@keyframes question-text-smoke-out {
+    0% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translate3d(0, 0, 0);
+    }
+    50% {
+        opacity: 0.55;
+        filter: blur(2px);
+        transform: translate3d(0, -2px, 0);
+    }
+    100% {
+        opacity: 0;
+        filter: blur(7px);
+        transform: translate3d(0, -5px, 0);
+    }
+}
+
+@keyframes question-text-smoke-in {
+    0% {
+        opacity: 0;
+        filter: blur(7px);
+        transform: translate3d(0, 5px, 0);
+    }
+    50% {
+        opacity: 0.55;
+        filter: blur(2px);
+        transform: translate3d(0, 2px, 0);
+    }
+    100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+/* ====================================================================== */
+/* 13. MOBILE */
+/* ====================================================================== */
+
+@media (max-width: 767px) {
+
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    #game {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    #game-panel {
+        width: 100vw;
+        height: 100vh;
+
+        left: 50%;
+        top: 50%;
+
+        transform: translate(-50%, -50%);
+    }
+
+    #scene-image,
+    #scene-image-next {
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+    }
+
+    /* ---------------------------------------------------------------------- */
+    /* MOBILE — WELCOME */
+    /* ---------------------------------------------------------------------- */
+
+    #game-panel.welcome-panel #scene-title {
+        left: 50%;
+        top: 17%;
+        width: 88%;
+
+        transform: translate(-50%, -50%);
+
+        font-size: clamp(28px, 8vw, 38px);
+        line-height: 1.05;
+
+        text-align: center;
+        white-space: normal;
+    }
+
+    /* Welcome subtitle */
+
+    #game-panel.welcome-panel #scene-text {
+        left: 50%;
+        top: 31%;
+        width: 86%;
+
+        transform: translate(-50%, -50%);
+
+        margin: 0;
+        padding: 0;
+
+        text-align: center;
+    }
+
+    #game-panel.welcome-panel #scene-text-content {
+        display: block;
+
+        width: 100%;
+
+        font-size: clamp(17px, 5vw, 22px);
+        line-height: 1.35;
+
+        white-space: normal;
+        text-align: center;
+    }
+
+    /* ---------------------------------------------------------------------- */
+    /* MOBILE — ENTER YOUR NAME */
+    /* ---------------------------------------------------------------------- */
+
+    #game-panel.welcome-panel #enter-name-row {
+        left: 50%;
+        top: 40.5%;
+
+        transform: translate(-50%, -50%);
+
+        width: 85%;
+
+        gap: 10px;
+
+        justify-content: center;
+        align-items: center;
+    }
+
+    #game-panel.welcome-panel .enter-name-ornament {
+        width: 70px;
+        height: auto;
+    }
+
+    #game-panel.welcome-panel #enter-name-label {
+        font-size: clamp(18px, 5.2vw, 24px);
+        letter-spacing: 2px;
+
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    /* ---------------------------------------------------------------------- */
+    /* MOBILE — NAME INPUT */
+    /* ---------------------------------------------------------------------- */
+
+    /* ---------------------------------------------------------------------- */
+    /* MOBILE — WELCOME CONTROLS STAGE */
+    /* ---------------------------------------------------------------------- */
+
+    #game-panel.welcome-panel #welcome-controls {
+        position: absolute;
+
+        inset: 0;
+
+        width: 100%;
+        height: 100%;
+
+        margin: 0;
+
+        transform: none;
+    }
+
+    #game-panel.welcome-panel #player-name {
+        position: absolute;
+
+        left: 50%;
+        top: 48%;
+
+        transform: translate(-50%, -50%);
+
+        width: 84%;
+        height: 52px;
+
+        box-sizing: border-box;
+
+        font-size: clamp(17px, 4.8vw, 21px);
+    }
+
+    /* ---------------------------------------------------------------------- */
+    /* MOBILE — ORNAMENT FINE TUNING */
+    /* ---------------------------------------------------------------------- */
+
+    #game-panel.welcome-panel #player-name {
+        background-position:
+                10px center,
+                center center;
+    }
+
+    #game-panel.welcome-panel .music-button-icon {
+        left: 6%;
+
+        transform: translateY(-50%);
+    }
+
+    /* ---------------------------------------------------------------------- */
+    /* MOBILE — MUSIC CONTROLS */
+    /* ---------------------------------------------------------------------- */
+
+    #game-panel.welcome-panel #music-controls {
+        position: absolute;
+
+        left: 50%;
+        top: 56%;
+
+        transform: translate(-50%, -50%);
+
+        width: 82%;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        gap: 10px;
+
+        margin: 0;
+    }
+
+    #game-panel.welcome-panel #music-controls button {
+        width: calc(50% - 5px);
+        height: 44px;
+
+        margin: 0;
+
+        font-size: clamp(14px, 4vw, 17px);
+
+        box-sizing: border-box;
+    }
+
+
+    /* ---------------------------------------------------------------------- */
+    /* MOBILE — START GAME */
+    /* ---------------------------------------------------------------------- */
+
+    #game-panel.welcome-panel #start-game-control {
+        position: absolute;
+
+        left: 50%;
+        top: 66%;
+
+        transform: translate(-50%, -50%);
+
+        width: 65%;
+    }
+
+    #game-panel.welcome-panel #start-game-visual,
+    #game-panel.welcome-panel #start-game-frame,
+    #game-panel.welcome-panel #start-game-button {
+        width: 100%;
+    }
+
+    #game-panel.welcome-panel #start-game-text {
+        font-size: clamp(17px, 5vw, 22px);
+        white-space: nowrap;
+    }
+
+    /* ---------------------------------------------------------------------- */
+    /* MOBILE — QUESTION */
+    /* ---------------------------------------------------------------------- */
+
+    #game-panel.question-panel #scene-text {
+        left: 50%;
+        top: 54%;
+        width: 82%;
+        height: auto;
+
+        transform: translate(-50%, -50%);
+
+        margin: 0;
+        padding: 0;
+    }
+
+    #game-panel.question-panel #scene-text-content {
+        width: 100%;
+
+        font-size: clamp(18px, 5vw, 23px);
+        line-height: 1.45;
+        letter-spacing: 0.4px;
+
+        text-align: center;
+    }
+
+    /* ---------------------------------------------------------------------- */
+    /* MOBILE — QUESTION FRAME */
+    /* ---------------------------------------------------------------------- */
+
+    #game-panel.question-panel #scene-text::before {
+        width: 120%;
+        height: 170%;
+
+        left: 50%;
+        top: 75%;
+
+        transform: translate(-50%, -50%);
+
+        background-image: url("/images/ui/question_frame_mobile.png");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+
+        opacity: 0.30;
+    }
+
+    /* ---------------------------------------------------------------------- */
+    /* MOBILE — QUESTION OPTIONS */
+    /* ---------------------------------------------------------------------- */
+
+    #game-panel.question-panel #question-options {
+        position: absolute;
+
+        left: 0;
+        top: 0;
+
+        transform: none;
+
+        width: 100%;
+        height: 100%;
+
+        pointer-events: none;
+        z-index: 27;
+    }
+
+    #game-panel.question-panel .question-option-left,
+    #game-panel.question-panel .question-option-right {
+        position: absolute;
+
+        top: 70.5%;
+
+        width: 42%;
+
+        font-size: clamp(17px, 4.7vw, 22px);
+        line-height: 1.05;
+
+        white-space: normal;
+        text-align: center;
+
+        transform: translate(-50%, -50%);
+
+        z-index: 28;
+    }
+
+    #game-panel.question-panel .question-option-left {
+        left: 31%;
+    }
+
+    #game-panel.question-panel .question-option-right {
+        left: 67%;
+    }
+
+    /* ---------------------------------------------------------------------- */
+    /* MOBILE — QUESTION CHOICES */
+    /* ---------------------------------------------------------------------- */
+
+    #game-panel.question-panel #choice-left-image {
+        left: 4%;
+        top: 67%;
+        width: 46%;
+    }
+
+    #game-panel.question-panel #choice-right-image {
+        left: 50%;
+        top: 67%;
+        width: 46%;
+    }
+
+    /* ---------------------------------------------------------------------- */
+    /* MOBILE — ANSWER INPUT */
+    /* ---------------------------------------------------------------------- */
+
+    #game-panel.question-panel #input-frame-image {
+        left: 7%;
+        top: 75%;
+        width: 86%;
+    }
+
+    #game-panel.question-panel #answer-input {
+        left: 50%;
+        top: 78%;
+
+        transform: translate(-50%, -50%);
+
+        width: 62%;
+        height: 5%;
+
+        padding: 0 10px;
+
+        font-size: clamp(16px, 4.8vw, 21px);
+
+        text-align: center;
+    }
+
+    /* ---------------------------------------------------------------------- */
+    /* MOBILE — SUBMIT */
+    /* ---------------------------------------------------------------------- */
+
+    #game-panel.question-panel #submit-answer-control {
+        left: 50%;
+        top: 84%;
+        width: 50%;
+
+        transform: translateX(-50%);
+    }
+
+    /* ---------------------------------------------------------------------- */
+    /* MOBILE — GAME OVER TEXT */
+    /* ---------------------------------------------------------------------- */
+
+    #game-panel.gameover-panel #scene-text {
+        width: 82%;
+    }
+
+    #game-panel.gameover-panel #scene-text-content {
+        width: 100%;
+
+        white-space: normal;
+        text-align: center;
+
+        font-size: clamp(18px, 5vw, 23px);
+        line-height: 1.45;
+    }
+
+    /* ---------------------------------------------------------------------- */
+    /* MOBILE — WELCOME GLOBAL SHIFT */
+    /* ---------------------------------------------------------------------- */
+
+    #game-panel.welcome-panel #scene-title,
+    #game-panel.welcome-panel #scene-text,
+    #game-panel.welcome-panel #enter-name-row,
+    #game-panel.welcome-panel #welcome-controls,
+    #game-panel.welcome-panel #start-game-control {
+        translate: 0 10vh;
+    }
+
+    /* ---------------------------------------------------------------------- */
+    /* MOBILE — VICTORY */
+    /* ---------------------------------------------------------------------- */
+
+    #game-panel.victory-panel #answers {
+        top: 85%;
+    }
+}
