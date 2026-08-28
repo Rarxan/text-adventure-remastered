@@ -1685,6 +1685,26 @@ html[lang="ru"] #game-panel.victory-panel #answers button {
     }
 }
 
+/* ---------------------------------------------------------------------- */
+/* GAME UI — DISABLE ACCIDENTAL SELECTION */
+/* ---------------------------------------------------------------------- */
+
+#game-panel,
+#game-panel * {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+#game-panel img {
+    -webkit-user-drag: none;
+    user-drag: none;
+}
+
+#answer-input {
+    user-select: text;
+    -webkit-user-select: text;
+}
+
 /* ====================================================================== */
 /* 13. MOBILE */
 /* ====================================================================== */
@@ -2008,6 +2028,11 @@ html[lang="ru"] #game-panel.victory-panel #answers button {
     #game-panel.question-panel .question-option-right {
         pointer-events: auto;
         cursor: pointer;
+
+        -webkit-tap-highlight-color: transparent;
+        outline: none;
+        user-select: none;
+        -webkit-user-select: none;
     }
 
     #game-panel.question-panel #input-frame-image,
