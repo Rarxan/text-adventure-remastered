@@ -1184,6 +1184,55 @@ function renderQuestionOptions(
         scene.answers[1]?.text || "";
 
 
+    const isMobile =
+        window.matchMedia(
+            "(max-width: 767px)"
+        ).matches;
+
+
+    if (isMobile) {
+
+        leftOption.onclick = () => {
+
+            const answer =
+                scene.answers[0];
+
+            if (!answer) {
+                return;
+            }
+
+            if (answer.nextSceneId === "victory") {
+                playVictorySequence();
+                return;
+            }
+
+            loadScene(
+                answer.nextSceneId
+            );
+        };
+
+
+        rightOption.onclick = () => {
+
+            const answer =
+                scene.answers[1];
+
+            if (!answer) {
+                return;
+            }
+
+            if (answer.nextSceneId === "victory") {
+                playVictorySequence();
+                return;
+            }
+
+            loadScene(
+                answer.nextSceneId
+            );
+        };
+    }
+
+
     questionOptions.appendChild(
         leftOption
     );

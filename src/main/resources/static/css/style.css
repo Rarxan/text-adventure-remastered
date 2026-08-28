@@ -1973,7 +1973,7 @@ html[lang="ru"] #game-panel.victory-panel #answers button {
         width: 100%;
         height: 100%;
 
-        pointer-events: none;
+        pointer-events: auto;
         z-index: 27;
     }
 
@@ -2002,6 +2002,18 @@ html[lang="ru"] #game-panel.victory-panel #answers button {
 
     #game-panel.question-panel .question-option-right {
         left: 67%;
+    }
+
+    #game-panel.question-panel .question-option-left,
+    #game-panel.question-panel .question-option-right {
+        pointer-events: auto;
+        cursor: pointer;
+    }
+
+    #game-panel.question-panel #input-frame-image,
+    #game-panel.question-panel #answer-input,
+    #game-panel.question-panel #submit-answer-control {
+        display: none !important;
     }
 
     /* ---------------------------------------------------------------------- */
