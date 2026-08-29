@@ -1690,17 +1690,21 @@ html[lang="ru"] #game-panel.victory-panel #answers button {
 /* ---------------------------------------------------------------------- */
 
 #game-panel,
-#game-panel * {
+#game-panel *,
+#pre-welcome,
+#pre-welcome * {
     user-select: none;
     -webkit-user-select: none;
 }
 
-#game-panel img {
+#game-panel img,
+#pre-welcome img {
     -webkit-user-drag: none;
     user-drag: none;
 }
 
-#answer-input {
+#answer-input,
+#player-name {
     user-select: text;
     -webkit-user-select: text;
 }
@@ -1739,6 +1743,21 @@ html[lang="ru"] #game-panel.victory-panel #answers button {
         height: 100%;
 
         object-fit: cover;
+    }
+
+    /* ---------------------------------------------------------------------- */
+    /* MOBILE — REMOVE TAP HIGHLIGHT */
+    /* ---------------------------------------------------------------------- */
+
+    #pre-welcome-enter-button,
+    #game-panel.welcome-panel #music-controls button,
+    #game-panel.welcome-panel #start-game-button,
+    #game-panel.gameover-panel #answers button,
+    #game-panel.victory-panel #answers button,
+    #game-panel.question-panel .question-option-left,
+    #game-panel.question-panel .question-option-right {
+        -webkit-tap-highlight-color: transparent;
+        outline: none;
     }
 
     /* ---------------------------------------------------------------------- */
@@ -2033,6 +2052,14 @@ html[lang="ru"] #game-panel.victory-panel #answers button {
         outline: none;
         user-select: none;
         -webkit-user-select: none;
+
+        transition: transform 140ms ease, filter 140ms ease;
+    }
+
+    #game-panel.question-panel .question-option-left:active,
+    #game-panel.question-panel .question-option-right:active {
+        transform: translate(-50%, -50%) scale(0.92);
+        filter: brightness(1.18);
     }
 
     #game-panel.question-panel #input-frame-image,
